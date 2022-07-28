@@ -1,0 +1,17 @@
+<h1>Hello, World!</h1>
+<% @disaster.each do |category|%>
+  <div><%=category.category_type%></div>
+  <div><%=category.id%></div>
+  <%= link_to 'edit', edit_category_path(category)  %>
+  <%= link_to "show", category_path(category) %>
+
+<!--  <button>-->
+    <%#= form_for category, url: categories_path(category), method: :delete do |f| %>
+      <%#= f.submit "delete" if category.user == current_user %>
+    <%# end %>
+<!--  </button>-->
+<% end %>
+
+
+
+<%= link_to "new", new_category_path %>
