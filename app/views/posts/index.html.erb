@@ -1,0 +1,52 @@
+<p style="text-align: right"><%= link_to "LOGOUT", destroy_user_session_path, :method => :delete %></p>
+
+<h1>Disaster Information Blog</h1>
+
+<% @posts.each do |post| %>
+  <div class="container">
+    <br><br>
+    <div class="row">
+      <p><%= image_tag "http://localhost:3000/#{post.image.url}" if post.image? %></p>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <p><b>Email : </b><%= post.user.email%></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col"><p><b>Disaster : </b><%= post.category.category_type %></p></div>
+    </div>
+
+    <div class="row">
+      <div class="col"><p><b>Title :</b><%= post.title %></p></div>
+    </div>
+
+    <div class="row">
+      <p><b> Short URL
+        :</b><%= link_to "#{@domain}/#{post.url_short}", post.url_short %></p>
+    </div>
+
+    <div class="row">
+      <p><b>Address :</b><%= post.address %></p>
+    </div>
+
+    <div class="row">
+      <p><b>Content :</b><%= post.content %></p>
+    </div>
+
+    <div class="row">
+      <p><b>Comments : </b><%= post.comments.count %></p>
+    </div>
+
+    <button type="button" class="btn btn-info"><%= link_to :comments, post_comments_path(post) %></button>
+    <button type="button" class="btn btn-info"><%= link_to "show ", post_path(post) %></button>
+    <%= link_to "edit ", edit_post_path(post) if post.user == current_user %>
+    <%= form_for post, url: post_path(post), method: :delete do |f| %>
+      <%= f.submit "delete" if post.user == current_user %>
+    <% end %>
+<% end %>
+
+<%= link_to 'New', new_post_path, class: 'btn btn-success mb-4' %>
+</div>

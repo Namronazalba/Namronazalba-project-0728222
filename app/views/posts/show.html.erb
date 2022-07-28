@@ -1,0 +1,9 @@
+<h1>show post id <%= @post.id %></h1>
+<div>
+  <p><b>Title :</b> <%= @post.title %></p>
+  <p><b>Content :</b> <%= @post.content %></p>
+  <p><b>Address :</b> <%= @post.address %></p>
+</div>
+
+<%= link_to 'index', posts_path %>
+<%= link_to 'edit', edit_post_path(@post)  %>

@@ -1,0 +1,43 @@
+<% if post.errors.any? %>
+  <% post.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+<% end %>
+<div class="container">
+  <div>
+    <div>
+      <%= f.label :category %>
+      <%= f.collection_select :category_id, Category.order(:category_type),:id,:category_type, include_blank: true %>
+    </div>
+  </div>
+  <div>
+    <div>
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
+  </div>
+  <div>
+    <div>
+      <%= f.label :content %>
+      <%= f.text_field :content, class: 'form-control' %>
+    </div>
+  </div>
+  <div>
+    <div>
+      <%= f.label :image %>
+      <%= f.file_field :image, class: 'form-control' %>
+    </div>
+  </div>
+  <div>
+    <div>
+      <%= f.label :address %>
+      <%= f.text_field :address, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div>
+    <div>
+      <%= f.submit class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>

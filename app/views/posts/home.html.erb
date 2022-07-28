@@ -1,0 +1,33 @@
+<h1>Disaster Information Table</h1>
+<button><%= link_to 'login', new_user_session_path %></button>
+<button><%= link_to 'register', new_user_registration_path %></button>
+<% @posts.each do |post| %>
+
+  <div>
+    <p><%= image_tag "http://localhost:3000/#{post.image.url}" if post.image? %></p>
+  </div>
+
+  <div>
+    <b>email:</b>
+    <p><%= post.user.email %></p>
+  </div>
+  <div>
+    <b>title:</b>
+    <p><%= post.title %></p>
+  </div>
+
+  <div>
+    <b>content:</b>
+    <p><%= post.content %></p>
+  </div>
+
+  <div>
+    <b>address:</b>
+    <p><%= post.address %></p>
+  </div>
+
+  <div>
+    <p><b><%= Post.human_attribute_name(:comments) %> : </b><%= post.comments.count %></p>
+  </div>
+
+<% end %>
