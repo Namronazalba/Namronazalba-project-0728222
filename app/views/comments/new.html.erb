@@ -1,0 +1,8 @@
+<%= link_to 'index', posts_path %>
+<h2>New comment for Post id<%= @post.id %></h2>
+<%= form_for @comment, url: post_comments_path(@post), method: :post do |f| %>
+  <p><%= f.label :content %></p>
+  <p><%= f.text_area :content %></p>
+
+  <%= f.submit %>
+<% end %>

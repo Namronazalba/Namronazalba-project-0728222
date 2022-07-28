@@ -1,0 +1,10 @@
+<%= link_to 'index', posts_path %>
+<% @comments.each do |comment| %>
+  <label><p>Content : <%= comment.content %></p></label>
+
+  <p><%= link_to 'edit', edit_post_comment_path(@post, comment) %></p>
+  <p><%= button_to "delete", post_comment_path(@post, comment), method: :delete, data: { confirm: "Are you sure?" } %>
+<% end %>
+</p>
+
+<%= link_to 'new', new_post_comment_path(@post) %>
