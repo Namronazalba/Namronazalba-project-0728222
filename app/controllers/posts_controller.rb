@@ -11,7 +11,7 @@ class PostsController < ApplicationController
 
   def home
     @posts = Post.includes(:user)
-    @posts = Post.all.includes(:user, :category).left_joins(:comments).group(:id).order("count(comments.id) desc")
+    @posts = Post.all.includes(:user, :category).page(params[:page]).per(4)
   end
 
   def new

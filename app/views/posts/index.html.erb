@@ -1,52 +1,44 @@
 <p style="text-align: right"><%= link_to "LOGOUT", destroy_user_session_path, :method => :delete %></p>
 
 <h1>Disaster Information Blog</h1>
+<table>
+  <thead>
+  <tr>
+    <th scope="col">Image</th>
+    <th scope="col">Email</th>
+    <th scope="col">Disaster</th>
+    <th scope="col">Title</th>
+    <th scope="col">Short URL</th>
+    <th scope="col">Address</th>
+    <th scope="col">Content</th>
+    <th scope="col">Comments</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
 
-<% @posts.each do |post| %>
-  <div class="container">
-    <br><br>
-    <div class="row">
-      <p><%= image_tag "http://localhost:3000/#{post.image.url}" if post.image? %></p>
-    </div>
+  <tbody>
+  <% @posts.each do |post| %>
+    <tr>
+      <td><%= image_tag "http://localhost:3000/#{post.image.url}" if post.image? %></td>
+      <td><%= post.user.email %></td>
+      <td><%= post.category.category_type %></td>
+      <td><%= post.title %></td>
+      <td><%= link_to "#{@domain}/#{post.url_short}", post.url_short %></td>
+      <td><%= post.address %></td>
+      <td><%= post.content %></td>
+      <td><%= post.comments.count %></td>
+      <td>
+        <button type="button" class="btn btn-info"><%= link_to :comments, post_comments_path(post) %></button>
+        <button type="button" class="btn btn-info"><%= link_to "show ", post_path(post) %></button>
+        <%= link_to "edit ", edit_post_path(post) if post.user == current_user %>
+        <%= form_for post, url: post_path(post), method: :delete do |f| %>
+          <%= f.submit "delete" if post.user == current_user %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
 
-    <div class="row">
-      <div class="col">
-        <p><b>Email : </b><%= post.user.email%></p>
-      </div>
-    </div>
+  <%= link_to 'New', new_post_path, class: 'btn btn-success mb-4' %>
+  </tbody>
+</table>
 
-    <div class="row">
-      <div class="col"><p><b>Disaster : </b><%= post.category.category_type %></p></div>
-    </div>
-
-    <div class="row">
-      <div class="col"><p><b>Title :</b><%= post.title %></p></div>
-    </div>
-
-    <div class="row">
-      <p><b> Short URL
-        :</b><%= link_to "#{@domain}/#{post.url_short}", post.url_short %></p>
-    </div>
-
-    <div class="row">
-      <p><b>Address :</b><%= post.address %></p>
-    </div>
-
-    <div class="row">
-      <p><b>Content :</b><%= post.content %></p>
-    </div>
-
-    <div class="row">
-      <p><b>Comments : </b><%= post.comments.count %></p>
-    </div>
-
-    <button type="button" class="btn btn-info"><%= link_to :comments, post_comments_path(post) %></button>
-    <button type="button" class="btn btn-info"><%= link_to "show ", post_path(post) %></button>
-    <%= link_to "edit ", edit_post_path(post) if post.user == current_user %>
-    <%= form_for post, url: post_path(post), method: :delete do |f| %>
-      <%= f.submit "delete" if post.user == current_user %>
-    <% end %>
-<% end %>
-
-<%= link_to 'New', new_post_path, class: 'btn btn-success mb-4' %>
-</div>

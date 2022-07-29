@@ -5,7 +5,7 @@ class Post < ApplicationRecord
   validates_presence_of :generate_short_url
 
   belongs_to :user
-  belongs_to :categories
+  belongs_to :category
   has_many :comments
 
   mount_uploader :image, ImageUploader
